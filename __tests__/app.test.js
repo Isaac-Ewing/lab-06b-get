@@ -31,31 +31,68 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+    test('returns games', async() => {
 
       const expectation = [
         {
-          'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
+          id: 'Destiny',
+          avgplayers: 73000,
+          fun: false,
+          owner_id: 1,
+          type: 'fps'
         },
         {
-          'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
+          id: 'DeadByDaylight',
+          avgplayers: 41000,
+          fun: true,
+          owner_id: 1,
+          type: 'horror'
         },
         {
-          'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
+          id: 'Rimworld',
+          avgplayers: 15000,
+          fun: true,
+          owner_id: 1,
+          type: 'survival'
+        },
+        {
+          id: 'SeaOfThieves',
+          avgplayers: 15900,
+          fun: true,
+          owner_id: 1,
+          type: 'adventure'
+        },
+        {
+          id: 'pubg',
+          avgplayers: 182000,
+          fun: false,
+          owner_id: 1,
+          type: 'fps'
         }
       ];
 
       const data = await fakeRequest(app)
-        .get('/animals')
+        .get('/games')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+    test('returns game', async() => {
+
+      const expectation = [
+        {
+          id: 'Destiny',
+          avgplayers: 73000,
+          fun: false,
+          owner_id: 1,
+          type: 'fps'
+        }
+      ];
+
+      const data = await fakeRequest(app)
+        .get('/games/Destiny')
         .expect('Content-Type', /json/)
         .expect(200);
 

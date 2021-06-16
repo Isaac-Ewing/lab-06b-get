@@ -19,7 +19,7 @@ async function run() {
                 );           
                 CREATE TABLE games (
                     id VARCHAR(512) NOT NULL,
-                    avgPlayers INTEGER NOT NULL,
+                    avgplayers INTEGER NOT NULL,
                     fun BOOLEAN NOT NULL,
                     type VARCHAR(512) NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)

@@ -27,10 +27,10 @@ async function run() {
     await Promise.all(
       games.map(game => {
         return client.query(`
-                    INSERT INTO games (id, avgPlayers, fun, type, owner_id)
+                    INSERT INTO games (id, avgplayers, fun, type, owner_id)
                     VALUES ($1, $2, $3, $4, $5);
                 `,
-        [game.id, game.avgPlayers, game.fun, game.type, user.id]);
+        [game.id, game.avgplayers, game.fun, game.type, user.id]);
       })
     );
     
