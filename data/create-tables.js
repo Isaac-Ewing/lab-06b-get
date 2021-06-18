@@ -18,8 +18,9 @@ async function run() {
                     hash VARCHAR(512) NOT NULL
                 );           
                 CREATE TABLE games (
-                    id VARCHAR(512) NOT NULL,
-                    avgplayers INTEGER NOT NULL,
+                    id INTEGER NOT NULL,
+                    name VARCHAR(512) NOT NULL,
+                    avgPlayers INTEGER NOT NULL,
                     fun BOOLEAN NOT NULL,
                     type VARCHAR(512) NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
