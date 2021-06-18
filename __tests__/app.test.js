@@ -37,7 +37,7 @@ describe('app routes', () => {
         {
           id: 1,
           name: 'Destiny',
-          avgPlayers: 73000,
+          avgplayers: 73000,
           fun: false,
           owner_id: 1,
           type: 'fps'
@@ -45,7 +45,7 @@ describe('app routes', () => {
         {
           id: 2,
           name: 'DeadByDaylight',
-          avgPlayers: 41000,
+          avgplayers: 41000,
           fun: true,
           owner_id: 1,
           type: 'horror'
@@ -53,7 +53,7 @@ describe('app routes', () => {
         {
           id: 3,
           name: 'Rimworld',
-          avgPlayers: 15000,
+          avgplayers: 15000,
           fun: true,
           owner_id: 1,
           type: 'survival'
@@ -61,7 +61,7 @@ describe('app routes', () => {
         {
           id: 4,
           name: 'SeaOfThieves',
-          avgPlayers: 15900,
+          avgplayers: 15900,
           fun: true,
           owner_id: 1,
           type: 'adventure'
@@ -69,7 +69,7 @@ describe('app routes', () => {
         {
           id: 5,
           name: 'pubg',
-          avgPlayers: 182000,
+          avgplayers: 182000,
           fun: false,
           owner_id: 1,
           type: 'fps'
@@ -90,7 +90,7 @@ describe('app routes', () => {
         {
           id: 1,
           name: 'Destiny',
-          avgPlayers: 73000,
+          avgplayers: 73000,
           fun: false,
           owner_id: 1,
           type: 'fps'
@@ -111,7 +111,7 @@ describe('app routes', () => {
       {
         id: 6,
         name: 'Spelunky',
-        avgPlayers: 30000,
+        avgplayers: 30000,
         fun: true,
         type: 'rouge'
       }; 
@@ -119,7 +119,7 @@ describe('app routes', () => {
         .post('/games')
         .send({
           name: 'Spelunky',
-          avgPlayers: 30000,
+          avgplayers: 30000,
           fun: true,
           type: 'rouge',
         })
@@ -137,25 +137,26 @@ describe('app routes', () => {
 
     test('put test', async() => {
       const data = await fakeRequest(app)
-        .put('/games/6')
+        .put('/games/5')
         .send({
           name: 'Spelunky2',
-          avgPlayers: 20000,
+          avgplayers: 20000,
           fun: false,
-          type: 'none'
+          type: 'none',
+          owner_id: 1
         });
   
       const newGame = { 
-        id: 6,
+        id: 5,
         name: 'Spelunky2',
-        avgPlayers: 20000,
+        avgplayers: 20000,
         fun: false,
         type: 'none',
         owner_id: 1
       };
 
       const dataGames = await fakeRequest(app)
-        .get('/games/6')
+        .get('/games/5')
         .expect('Content-Type', /json/)
         .expect(200);
       expect(data.body).toEqual(newGame);
@@ -168,7 +169,7 @@ describe('app routes', () => {
       {
         id: 6,
         name: 'Spelunky',
-        avgPlayers: 30000,
+        avgplayers: 30000,
         fun: true,
         type: 'rouge',
       };
