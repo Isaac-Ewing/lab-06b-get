@@ -5,10 +5,12 @@ const { execSync } = require('child_process');
 const fakeRequest = require('supertest');
 const app = require('../lib/app');
 const client = require('../lib/client');
+const { getCategoryIdByName } = require('../lib/utils.js');
 
 describe('app routes', () => {
   describe('routes', () => {
     let token;
+    let categories;
   
     beforeAll(async done => {
       execSync('npm run setup-db');
@@ -23,6 +25,9 @@ describe('app routes', () => {
         });
       
       token = signInData.body.token; // eslint-disable-line
+
+      const categoryData = await fakeRequest(app).get('/categories');
+      categories = categoryData.body;
   
       return done();
     });
@@ -40,7 +45,7 @@ describe('app routes', () => {
           avgplayers: 73000,
           fun: false,
           owner_id: 1,
-          type: 'fps'
+          category: 'fps'
         },
         {
           id: 2,
@@ -48,7 +53,7 @@ describe('app routes', () => {
           avgplayers: 41000,
           fun: true,
           owner_id: 1,
-          type: 'horror'
+          category: 'horror'
         },
         {
           id: 3,
@@ -56,7 +61,7 @@ describe('app routes', () => {
           avgplayers: 15000,
           fun: true,
           owner_id: 1,
-          type: 'survival'
+          category: 'survival'
         },
         {
           id: 4,
@@ -64,7 +69,7 @@ describe('app routes', () => {
           avgplayers: 15900,
           fun: true,
           owner_id: 1,
-          type: 'adventure'
+          category: 'adventure'
         },
         {
           id: 5,
@@ -72,7 +77,7 @@ describe('app routes', () => {
           avgplayers: 182000,
           fun: false,
           owner_id: 1,
-          type: 'fps'
+          category: 'fps'
         }
       ];
 
@@ -93,7 +98,7 @@ describe('app routes', () => {
           avgplayers: 73000,
           fun: false,
           owner_id: 1,
-          type: 'fps'
+          category: 'fps'
         }
       ];
 
@@ -106,14 +111,15 @@ describe('app routes', () => {
     });
 
     test('make a new game', async() => {
-
+      const categoryId = getCategoryIdByName(categories, 'fps');
       const expectation = 
       {
         id: 6,
         name: 'Spelunky',
         avgplayers: 30000,
         fun: true,
-        type: 'rouge'
+        owner_id: 1,
+        category: 'fps'
       }; 
       const data = await fakeRequest(app)
         .post('/games')
@@ -121,7 +127,7 @@ describe('app routes', () => {
           name: 'Spelunky',
           avgplayers: 30000,
           fun: true,
-          type: 'rouge',
+          category_id: categoryId,
         })
         .expect('Content-Type', /json/)
         .expect(200);
