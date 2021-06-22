@@ -115,7 +115,7 @@ describe('app routes', () => {
       const expectation = 
       {
         id: 6,
-        name: 'Spelunky',
+        name: 'game',
         avgplayers: 30000,
         fun: true,
         owner_id: 1,
@@ -124,10 +124,10 @@ describe('app routes', () => {
       const data = await fakeRequest(app)
         .post('/games')
         .send({
-          name: 'Spelunky',
+          name: 'game',
           avgplayers: 30000,
           fun: true,
-          category_id: categoryId,
+          category_id: categoryId
         })
         .expect('Content-Type', /json/)
         .expect(200);
@@ -135,8 +135,7 @@ describe('app routes', () => {
       const gamesData = await fakeRequest(app) 
         .get('/games')
         .expect('Content-Type', /json/)
-        .expect(200); 
-
+        .expect(200);
       expect(data.body).toEqual(expectation);
       expect(gamesData.body).toContainEqual(expectation);
     });
@@ -145,19 +144,19 @@ describe('app routes', () => {
       const data = await fakeRequest(app)
         .put('/games/5')
         .send({
-          name: 'Spelunky2',
+          name: 'Spelunky',
           avgplayers: 20000,
           fun: false,
-          type: 'none',
+          category_id: 'horror',
           owner_id: 1
         });
   
       const newGame = { 
         id: 5,
-        name: 'Spelunky2',
+        name: 'Spelunky',
         avgplayers: 20000,
         fun: false,
-        type: 'none',
+        category: 'horror',
         owner_id: 1
       };
 
@@ -191,6 +190,16 @@ describe('app routes', () => {
         .expect(200); 
      
       expect(allGames.body).not.toContainEqual(expectation);
+    });
+
+    test('/GET categories returns all categories', async() => {
+
+      const data = await fakeRequest(app)
+        .get('/categories')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body.length).toBeGreaterThan(0);
     });
   });
 });
