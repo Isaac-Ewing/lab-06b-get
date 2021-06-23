@@ -121,6 +121,15 @@ describe('app routes', () => {
         owner_id: 1,
         category: 'fps'
       }; 
+      const expectation2 = 
+      {
+        id: 6,
+        name: 'game',
+        avgplayers: 30000,
+        fun: true,
+        owner_id: 1,
+        category_id: categoryId
+      }; 
       const data = await fakeRequest(app)
         .post('/games')
         .send({
@@ -131,27 +140,36 @@ describe('app routes', () => {
         })
         .expect('Content-Type', /json/)
         .expect(200);
-        
       const gamesData = await fakeRequest(app) 
         .get('/games')
         .expect('Content-Type', /json/)
         .expect(200);
-      expect(data.body).toEqual(expectation);
+      expect(data.body).toEqual(expectation2);
       expect(gamesData.body).toContainEqual(expectation);
     });
 
     test('put test', async() => {
+      const categoryId = getCategoryIdByName(categories, 'horror');
       const data = await fakeRequest(app)
         .put('/games/5')
         .send({
           name: 'Spelunky',
           avgplayers: 20000,
           fun: false,
-          category_id: 'horror',
+          category_id: 2,
           owner_id: 1
         });
   
       const newGame = { 
+        id: 5,
+        name: 'Spelunky',
+        avgplayers: 20000,
+        fun: false,
+        category_id: 2,
+        owner_id: 1
+      };
+      
+      const newGame2 = { 
         id: 5,
         name: 'Spelunky',
         avgplayers: 20000,
@@ -165,7 +183,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
       expect(data.body).toEqual(newGame);
-      expect(dataGames.body).toContainEqual(newGame);
+      expect(dataGames.body).toContainEqual(newGame2);
     });
 
     test('test delete', async() => {
