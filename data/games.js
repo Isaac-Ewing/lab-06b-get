@@ -1,33 +1,33 @@
 const data = [
   {
-    id: 'Destiny',
+    name: 'Destiny',
     avgplayers: 73000,
     fun: false,
-    type: 'fps'
+    category_id: 1
   },
   {
-    id: 'DeadByDaylight',
+    name: 'DeadByDaylight',
     avgplayers: 41000,
     fun: true,
-    type: 'horror'
+    category_id: 2
   },
   {
-    id: 'Rimworld',
+    name: 'Rimworld',
     avgplayers: 15000,
     fun: true,
-    type: 'survival'
+    category_id: 3
   },
   {
-    id: 'SeaOfThieves',
+    name: 'SeaOfThieves',
     avgplayers: 15900,
     fun: true,
-    type: 'adventure'
+    category_id: 4
   },
   {
-    id: 'pubg',
+    name: 'pubg',
     avgplayers: 182000,
     fun: false,
-    type: 'fps'
+    category_id: 1
   }
 ];
 
